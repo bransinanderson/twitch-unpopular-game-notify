@@ -1,0 +1,5 @@
+{
+    "require": {
+        "vertisan/oauth2-twitch-helix": "^1.0"
+    }
+}
