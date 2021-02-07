@@ -2,7 +2,7 @@
 
 There are unpopular [Twitch](https://www.twitch.tv/) video game categories that can go for weeks or months without seeing a [live streamer](https://en.wikipedia.org/wiki/Online_streamer). This program sends a notification to your [Amazon Echo](https://en.wikipedia.org/wiki/Amazon_Echo) device when a [streamer](https://www.computerhope.com/jargon/s/streamer.htm) begins live streaming your favorite obscure video game.
 
-The intention of this program is to handpick Twitch games that have little to no activity, and to be alerted when a streamer begins to live stream that game.
+The intention of this program is to handpick Twitch games that have little to no activity, and to be notified when a streamer begins to live stream that game.
 
 ## Requirements
 
