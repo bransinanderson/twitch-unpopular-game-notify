@@ -17,7 +17,7 @@ The intention of this program is to handpick Twitch games that have little to no
 1. Clone or download this repository to your system
 2. From the command line, navigate to project directory `cd /path/to/dir/twitch-unpopular-game-notify`
 3. Run `composer install`. If Composer is not installed on your system, you can [get Composer here](https://getcomposer.org/).
-4. [Open **config.php** file and set your options and save](#configuration-options-in-config.php)
+4. [Open **config.php** file and set your options and save](#configuration-options-in-configphp)
 5. Upload the project directory 'twitch-unpopular-game-notify' to your server
 6. [Cron Job Setup](#cron-job-setup)
 
@@ -70,6 +70,7 @@ The second cron removes a generated streams log file _every 8 hours_ from the se
 ```
 
 ## Special Thanks
-[OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client) by [The League of Extraordinary Packages
-](https://github.com/thephpleague)[Twitch provider for league/oauth2-client](https://github.com/tpavlek/oauth2-twitch) by [Troy Pavlek](https://github.com/tpavlek)
-[Notify Me](https://www.thomptronics.com/about/notify-me) Alexa Skill by [Thomptronics](https://www.thomptronics.com/)
+- [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client) by [The League of Extraordinary Packages
+](https://github.com/thephpleague)
+- [Twitch provider for league/oauth2-client](https://github.com/tpavlek/oauth2-twitch) by [Troy Pavlek](https://github.com/tpavlek)
+- [Notify Me](https://www.thomptronics.com/about/notify-me) Alexa Skill by [Thomptronics](https://www.thomptronics.com/)
