@@ -19,7 +19,8 @@
 	// useful for debugging. set to 'false' to send notifications
 	define('DISABLE_NOTIFICATIONS', 'false');
 
-
+	// Will not announce the same stream again unless amount of time has passed
+	define('TIME_BUFFER', '+12 hours');
 
 /* ==================================================
 
@@ -85,14 +86,12 @@
 
 	Cron Setup
 
-	Setup 2 crons on your server with the paths changed to where your program is located on server
+	Setup 1 crons on your server with the paths changed to where your program is located on server
 	
 	cron 1: runs every 5 minutes and executes this program checking for new streams within a category
-	cron 2: removes the log file every 8 hours. This log file keeps track of previously announced streams.
 
 	Note, do not include the PHP "//" comment notation
 
 ===================================================== */
 
 //		*/5 * * * * cd /your/server/path/to/twitch-unpopular-game-notify && php index.php >/dev/null 2>&1;
-//		0 */8 * * * rm /your/server/path/to/twitch-unpopular-game-notify/streams_log >/dev/null 2>&1;

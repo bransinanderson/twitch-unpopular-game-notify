@@ -57,16 +57,12 @@ define('NOTIFY_ME_ACCESS_CODE', 'yourNotifyMeAccessCodeGoesHere');
 
 ## Cron Job Setup
 
-Two cron jobs are required for this program to run. The timings of these two crons can be adjusted to your own requirements.
+A cron task is required for this program to run. The timing of the cron can be adjusted to your own requirements.
 
-The first cron runs the program _every 5 minutes_ to check for new streams within your handpicked categories.
+For example, this cron is set to run the program every 5 minutes to check for new streams.
 **Update the example paths below accordingly**.
 ```
 */5 * * * * cd /your/server/path/to/twitch-unpopular-game-notify && php index.php >/dev/null 2>&1;
-```
-The second cron removes a generated streams log file _every 8 hours_ from the server. The streams log keeps track of previously announced streams.
-```
-0 */8 * * * rm /your/server/path/to/twitch-unpopular-game-notify/streams_log >/dev/null 2>&1;
 ```
 
 ## Special Thanks

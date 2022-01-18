@@ -32,7 +32,23 @@ foreach($requiredOptions['user'] as $key => $val) {
 	}
 
 	// Get previously logged stream contents from file
-	$previouslyLoggedStreams = explode(',', file_get_contents(STREAM_LOG_FILE));
+	$previouslyLoggedStreams = json_decode(file_get_contents(STREAM_LOG_FILE), true);
+
+	if (! is_array($previouslyLoggedStreams)) {
+		$previouslyLoggedStreams = array();
+	}
+
+	// Clean up streams from STREAM_LOG_FILE where stream unix_time is greater than TIME_BUFFER
+	foreach($previouslyLoggedStreams as $key => $stream) {
+		$max_time = $stream['unix_time'] + (strtotime(TIME_BUFFER) - time());
+		if (time() > $max_time) {
+			unset($previouslyLoggedStreams[$key]);
+		}
+	}
+
+	// Logging
+	$streamsToLogToFile = array();
+	$newStreamsToAnnounce = array();
 
 	foreach(TWITCH_CATEGORIES as $key => $val) {
 
@@ -53,12 +69,8 @@ foreach($requiredOptions['user'] as $key => $val) {
 			continue;
 		}
 
-		// Logging
-		$streamsToLogToFile = array();
-		$newStreamsToAnnounce = array();
-
 		foreach($rawBody->data as $key => $val) {
-			if (!in_array($val->id, $previouslyLoggedStreams)) {
+			if (!array_key_exists($val->id, $previouslyLoggedStreams)) {
 				$newStreamsToAnnounce[$val->id] = array(
 					'id' => $val->id,
 					'title' => $val->title,
@@ -79,7 +91,13 @@ foreach($requiredOptions['user'] as $key => $val) {
 		$newStreamsToAnnounce = array_slice(array_reverse($newStreamsToAnnounce), 0, MAX_NOTIFICATIONS_PER_TWITCH_CATEGORY);
 
 		foreach($newStreamsToAnnounce as $stream) {
-			$streamsToLogToFile[] = $stream['id'];
+
+			$streamsToLogToFile[$stream['id']] = array(
+				'user' => $stream['user'],
+				'game' => $stream['game'],
+				'unix_time' => $stream['unix_time']
+			);
+
 			$notificationMessage = sprintf(
 				NOTIFY_ME_NOTIFICATION,
 				$stream['user'],
@@ -88,7 +106,7 @@ foreach($requiredOptions['user'] as $key => $val) {
 			);
 
 			// Send notification
-			echo $notificationMessage . PHP_EOL;
+			echo $notificationMessage . '<br>';
 
 			if (DISABLE_NOTIFICATIONS == 'false') {
 				try {
@@ -99,23 +117,8 @@ foreach($requiredOptions['user'] as $key => $val) {
 					exit($e->getMessage());
 				}
 			}
-
 		}
 
-		// Writing to log file so we don't send notifications that have already been sent previously
-		if (!empty($streamsToLogToFile)) {
+		file_put_contents(STREAM_LOG_FILE, json_encode($streamsToLogToFile + $previouslyLoggedStreams));
 
-			$streamsToLogToFile = implode(',', array_diff($streamsToLogToFile, $previouslyLoggedStreams));
-
-			// dealing with comma delimited when using file_put_contents with FILE_APPEND
-			if (filesize(STREAM_LOG_FILE)) {
-				$file_contents = ',' . $streamsToLogToFile;
-			} else {
-				$file_contents = $streamsToLogToFile;
-			}
-
-			file_put_contents(STREAM_LOG_FILE, $file_contents, FILE_APPEND);
-		}
-		
 	}
-	
