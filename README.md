@@ -68,5 +68,5 @@ For example, this cron is set to run the program every 5 minutes to check for ne
 ## Special Thanks
 - [OAuth 2.0 Client](https://github.com/thephpleague/oauth2-client) by [The League of Extraordinary Packages
 ](https://github.com/thephpleague)
-- [Twitch provider for league/oauth2-client](https://github.com/tpavlek/oauth2-twitch) by [Troy Pavlek](https://github.com/tpavlek)
+- [Twitch Helix Provider for OAuth 2.0 Client](https://github.com/vertisan/oauth2-twitch-helix) by [Paweł Farys](https://github.com/vertisan)
 - [Notify Me](https://www.thomptronics.com/about/notify-me) Alexa Skill by [Thomptronics](https://www.thomptronics.com/)
