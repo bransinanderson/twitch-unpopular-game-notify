@@ -8,7 +8,7 @@ require_once dirname(__DIR__).'/'.APP_FOLDER_NAME.'/config.php';
 // Check all user config options are defined in config.php
 $requiredOptions = get_defined_constants(true);
 foreach($requiredOptions['user'] as $key => $val) {
-	if (empty($val)) {
+	if ($val === '') {
 		exit('Config option '.$key.' is required. Set this value in file config.php');
 	}
 }
@@ -119,7 +119,7 @@ function in_array_r($needle, $haystack, $strict = false) {
 			// Send notification
 			echo $notificationMessage . '<br>';
 
-			if (DISABLE_NOTIFICATIONS == false) {
+			if (DISABLE_NOTIFICATIONS === false) {
 				try {
 					$request = $provider->getAuthenticatedRequest('POST', NOTIFY_ME_API_URL.NOTIFY_ME_RESOURCE.'?&title='.NOTIFY_ME_TITLE.'&notification='.rawurlencode($notificationMessage).'&accessCode='.NOTIFY_ME_ACCESS_CODE, $accessToken);
 					$response = $client->send($request);
