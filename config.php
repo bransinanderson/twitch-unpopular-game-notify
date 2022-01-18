@@ -17,7 +17,7 @@
 	define('STREAM_LOG_FILE', 'streams_log');
 
 	// useful for debugging. set to 'false' to send notifications
-	define('DISABLE_NOTIFICATIONS', 'false');
+	define('DISABLE_NOTIFICATIONS', false);
 
 	// Will not announce the same stream again unless amount of time has passed
 	define('TIME_BUFFER', '+12 hours');
