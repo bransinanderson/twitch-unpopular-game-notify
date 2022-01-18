@@ -13,6 +13,16 @@ foreach($requiredOptions['user'] as $key => $val) {
 	}
 }
 
+// recursive array find needle
+function in_array_r($needle, $haystack, $strict = false) {
+	foreach ($haystack as $item) {
+		if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+		    return true;
+		}
+	}
+	return false;
+}
+
 /*******************************************************************************************
 ********************************************************************************************/
 
@@ -70,7 +80,8 @@ foreach($requiredOptions['user'] as $key => $val) {
 		}
 
 		foreach($rawBody->data as $key => $val) {
-			if (!array_key_exists($val->id, $previouslyLoggedStreams)) {
+			// not same stream ID OR not previously saved user
+			if (!array_key_exists($val->id, $previouslyLoggedStreams) || !in_array_r($val->user_name, $previouslyLoggedStreams)) {
 				$newStreamsToAnnounce[$val->id] = array(
 					'id' => $val->id,
 					'title' => $val->title,
@@ -108,7 +119,7 @@ foreach($requiredOptions['user'] as $key => $val) {
 			// Send notification
 			echo $notificationMessage . '<br>';
 
-			if (DISABLE_NOTIFICATIONS == 'false') {
+			if (DISABLE_NOTIFICATIONS == false) {
 				try {
 					$request = $provider->getAuthenticatedRequest('POST', NOTIFY_ME_API_URL.NOTIFY_ME_RESOURCE.'?&title='.NOTIFY_ME_TITLE.'&notification='.rawurlencode($notificationMessage).'&accessCode='.NOTIFY_ME_ACCESS_CODE, $accessToken);
 					$response = $client->send($request);

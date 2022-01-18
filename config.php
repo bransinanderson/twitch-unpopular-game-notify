@@ -86,9 +86,9 @@
 
 	Cron Setup
 
-	Setup 1 crons on your server with the paths changed to where your program is located on server
+	Set up a cron on your server (or 3rd party service) with the paths changed to where your program is located on server
 	
-	cron 1: runs every 5 minutes and executes this program checking for new streams within a category
+	In this example, this task runs every 5 minutes. Checking for new streams within a category.
 
 	Note, do not include the PHP "//" comment notation
 
