@@ -80,8 +80,8 @@ function in_array_r($needle, $haystack, $strict = false) {
 		}
 
 		foreach($rawBody->data as $key => $val) {
-			// not same stream ID OR not previously saved user
-			if (!array_key_exists($val->id, $previouslyLoggedStreams) || !in_array_r($val->user_name, $previouslyLoggedStreams)) {
+			// not same stream ID AND not previously saved user
+			if (!array_key_exists($val->id, $previouslyLoggedStreams) && !in_array_r($val->user_name, $previouslyLoggedStreams)) {
 				$newStreamsToAnnounce[$val->id] = array(
 					'id' => $val->id,
 					'title' => $val->title,
