@@ -56,11 +56,11 @@ function in_array_r($needle, $haystack, $strict = false) {
 		}
 	}
 
-	// Logging
 	$streamsToLogToFile = array();
-	$newStreamsToAnnounce = array();
-
+	
 	foreach(TWITCH_CATEGORIES as $key => $val) {
+
+		$newStreamsToAnnounce = array();
 
 		// Twitch API request
 		try {
@@ -129,7 +129,6 @@ function in_array_r($needle, $haystack, $strict = false) {
 				}
 			}
 		}
-
-		file_put_contents(STREAM_LOG_FILE, json_encode($streamsToLogToFile + $previouslyLoggedStreams));
-
 	}
+
+	file_put_contents(STREAM_LOG_FILE, json_encode($streamsToLogToFile + $previouslyLoggedStreams));
